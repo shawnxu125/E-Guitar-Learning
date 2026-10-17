@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>参考：标准调弦指板音名表（0-12品）</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    table.fret-notes { font-size: 0.75rem; }
+    table.fret-notes td { padding: 0.25rem 0.4rem; font-family: var(--font-mono); }
+    table.fret-notes td.root-col { background: #fdecea; font-weight: 700; }
+    table.fret-notes td.octave { background: #e8f8f0; }
+    .string-col { font-weight: 700; background: var(--code-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 标准调弦指板音名表（0~12品）</h1>
+    <p>标准调弦（从粗到细）：<code>E - A - D - G - B - e</code>。这是所有课程的事实来源，写课程前先查这张表。</p>
+
+    <table class="fret-notes">
+      <tr><th>弦</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr>
+      <tr><td class="string-col">6弦 E（粗）</td><td class="octave">E</td><td class="root-col">F</td><td>F#</td><td class="root-col">G</td><td>G#</td><td class="root-col">A</td><td>A#</td><td class="root-col">B</td><td class="root-col">C</td><td>C#</td><td class="root-col">D</td><td>D#</td><td class="octave">E</td></tr>
+      <tr><td class="string-col">5弦 A</td><td class="octave">A</td><td>A#</td><td class="root-col">B</td><td class="root-col">C</td><td>C#</td><td class="root-col">D</td><td>D#</td><td class="root-col">E</td><td class="root-col">F</td><td>F#</td><td class="root-col">G</td><td>G#</td><td class="octave">A</td></tr>
+      <tr><td class="string-col">4弦 D</td><td class="octave">D</td><td>D#</td><td class="root-col">E</td><td class="root-col">F</td><td>F#</td><td class="root-col">G</td><td>G#</td><td class="root-col">A</td><td>A#</td><td class="root-col">B</td><td class="root-col">C</td><td>C#</td><td class="octave">D</td></tr>
+      <tr><td class="string-col">3弦 G</td><td class="octave">G</td><td>G#</td><td class="root-col">A</td><td>A#</td><td class="root-col">B</td><td class="root-col">C</td><td>C#</td><td class="root-col">D</td><td>D#</td><td class="root-col">E</td><td class="root-col">F</td><td>F#</td><td class="octave">G</td></tr>
+      <tr><td class="string-col">2弦 B</td><td class="octave">B</td><td class="root-col">C</td><td>C#</td><td class="root-col">D</td><td>D#</td><td class="root-col">E</td><td class="root-col">F</td><td>F#</td><td class="root-col">G</td><td>G#</td><td class="root-col">A</td><td>A#</td><td class="octave">B</td></tr>
+      <tr><td class="string-col">1弦 e（细）</td><td class="octave">E</td><td class="root-col">F</td><td>F#</td><td class="root-col">G</td><td>G#</td><td class="root-col">A</td><td>A#</td><td class="root-col">B</td><td class="root-col">C</td><td>C#</td><td class="root-col">D</td><td>D#</td><td class="octave">E</td></tr>
+    </table>
+
+    <p style="font-size:0.85rem;color:var(--text-secondary);">
+      🔴 红色底 = C大调自然音（C D E F G A B 无升降号的位置）　🟢 绿色底 = 空弦/12品（同音八度）
+    </p>
+
+    <h2>快速找和弦口诀</h2>
+    <table>
+      <tr><th>根音弦</th><th>和弦类型</th><th>常用位置</th></tr>
+      <tr><td rowspan="2"><strong>6弦</strong></td><td>E型（大）/Em型（小）</td><td>F=1, G=3, A=5, B=7, C=8, D=10, E=12</td></tr>
+      <tr><td>G型/D型附近</td><td>暂不常用</td></tr>
+      <tr><td rowspan="2"><strong>5弦</strong></td><td>A型（大）/Am型（小）</td><td>Bb=1, B=2, C=3, D=5, E=7, F=8, G=10</td></tr>
+      <tr><td>C型附近</td><td>暂不常用</td></tr>
+      <tr><td><strong>4弦</strong></td><td>D型（大）/Dm型（小）</td><td>E=2, F=3, G=5, A=7, Bb=8, C=10</td></tr>
+    </table>
+
+    <h2>三音和弦速查（3-2-1弦 G-B-e）</h2>
+    <p>记法：<code>3弦品数 - 2弦品数 - 1弦品数</code></p>
+    <table>
+      <tr><th>和弦</th><th>开放组</th><th>音</th><th>5品区可移动组</th><th>音</th></tr>
+      <tr><td>C</td><td><code>0-1-0</code></td><td>G-C-E</td><td><code>5-5-3</code></td><td>C-E-G</td></tr>
+      <tr><td>Dm</td><td><code>2-3-1</code></td><td>A-D-F</td><td><code>7-6-5</code></td><td>D-F-A</td></tr>
+      <tr><td>Em</td><td><code>4-5-3</code></td><td>B-E-G</td><td><code>9-8-7</code></td><td>E-G-B</td></tr>
+      <tr><td>F</td><td><code>2-1-1</code></td><td>A-C-F</td><td><code>5-6-5</code></td><td>C-F-A</td></tr>
+      <tr><td>G</td><td><code>0-0-3</code></td><td>G-B-G</td><td><code>7-8-7</code></td><td>D-G-B</td></tr>
+      <tr><td>Am</td><td><code>2-1-0</code></td><td>A-C-E</td><td><code>5-5-5</code></td><td>C-E-A</td></tr>
+    </table>
+
+    <h2>C大调五声音阶（开放把位）</h2>
+    <pre>
+音：C D E G A（1 2 3 5 6 级）
+e |----0---3---5---|   E   G   A
+B |----1---3---5---|   C   D   E
+G |----0---2---5---|   G   A   C
+D |----0---2---5---|   D   E   G
+A |----0---3---5---|   A   C   D
+E |----0---3---5---|   E   G   A
+    </pre>
+
+    <p style="margin-top:2rem;font-size:0.85rem;"><a href="../index.html">🏠 学习中心</a> · <a href="./chord-progressions.html">进行速查表</a> · <a href="./pentatonic-positions.html">五声音阶把位表</a> · <a href="./rhythm-patterns.html">节奏型速查表</a></p>
+  </div>
+</body>
+</html>

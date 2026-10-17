@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2: CAGED 系统与三音和弦 — 电吉他伴奏的核心布局</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* --- Fretboard diagram helpers --- */
+    .fretboard-viz {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .fb-row {
+      display: flex;
+      align-items: center;
+      height: 26px;
+    }
+    .fb-string-label {
+      width: 20px;
+      text-align: right;
+      padding-right: 6px;
+      color: #999;
+      font-weight: 700;
+      font-size: 0.65rem;
+    }
+    .fb-cell {
+      width: 36px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-right: 1px solid #c9a87c;
+    }
+    .fb-cell.fret-marker::before {
+      content: '•';
+      position: absolute;
+      bottom: 2px;
+      font-size: 0.5rem;
+      color: #8b6b40;
+      opacity: 0.6;
+    }
+    .fb-note {
+      display: inline-flex;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+    .note-root { background: #e74c3c; }
+    .note-3rd { background: #3498db; }
+    .note-5th { background: #27ae60; }
+    .note-other { background: #95a5a6; }
+
+    .chord-block {
+      display: inline-block;
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin: 0.5rem 0;
+    }
+    .chord-block .r { color: #e74c3c; }
+    .chord-block .b { color: #3498db; }
+    .chord-block .g { color: #2ecc71; }
+
+    .cage-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .cage-box {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.5rem 0.8rem;
+      text-align: center;
+      min-width: 70px;
+    }
+    .cage-box .shape {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: block;
+    }
+    .cage-box .root {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+    .cage-box.c { border-color: #e74c3c; }
+    .cage-box.a { border-color: #e67e22; }
+    .cage-box.g { border-color: #f1c40f; }
+    .cage-box.e { border-color: #2ecc71; }
+    .cage-box.d { border-color: #3498db; }
+
+    .voice-compare {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+    .voice-card {
+      flex: 1;
+      min-width: 120px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.6rem;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    .voice-card .label {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .voice-card .fret-label {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎸 Lesson 2: CAGED 系统与三音和弦</h1>
+    <p><em>你需要：一把调好音的电吉他 + 20分钟。建议已完成 Lesson 1 的 E型横按练习。</em></p>
+
+    <div class="info-box">
+      <strong>🎯 这节课结束后，你能做到：</strong>
+      <ol>
+        <li>理解 CAGED 系统的核心概念（5个形状在指板上跑）</li>
+        <li>用三音和弦（Triads）在 D-G-B 弦上弹 1645</li>
+        <li>知道什么时候用大横按、什么时候用三音和弦</li>
+        <li>听到"电吉他味"的伴奏音色是什么、怎么弹出来</li>
+      </ol>
+    </div>
+
+    <!-- ============= SECTION 1: CAGED ============= -->
+    <h2>1. CAGED 系统——指板地图</h2>
+
+    <p>CAGED 不是一个高深理论——它只是一个事实：<strong>所有和弦形状都来自你已知的五个开放和弦</strong>。</p>
+
+    <div class="cage-diagram">
+      <div class="cage-box c">
+        <span class="shape" style="color:#e74c3c;">C</span>
+        <span class="root">根音在5弦3品</span>
+      </div>
+      <div class="cage-box a">
+        <span class="shape" style="color:#e67e22;">A</span>
+        <span class="root">根音在5弦</span>
+      </div>
+      <div class="cage-box g">
+        <span class="shape" style="color:#f1c40f;">G</span>
+        <span class="root">根音在6弦3品</span>
+      </div>
+      <div class="cage-box e">
+        <span class="shape" style="color:#2ecc71;">E</span>
+        <span class="root">根音在6弦</span>
+      </div>
+      <div class="cage-box d">
+        <span class="shape" style="color:#3498db;">D</span>
+        <span class="root">根音在4弦</span>
+      </div>
+    </div>
+
+    <p>上一课你练了 <strong>E型</strong> 和 <strong>Em型</strong> 大横按——恭喜，你已经用上 CAGED 了！E型 就是开放的 E 和弦形状平移到了任意把位。</p>
+
+    <h3>CAGED 的核心理念</h3>
+    <p>对于<strong>任何一个大调和弦</strong>（比如 C），你在指板上至少有<strong>五个不同的位置</strong>可以按出 C，分别对应 C-A-G-E-D 五个形状：</p>
+
+    <table>
+      <tr><th>形状</th><th>根音在哪根弦</th><th>C 和弦的位置</th><th>G 和弦的位置</th></tr>
+      <tr><td><strong>C型</strong></td><td>5弦</td><td>开放 C（就是民谣的 C，5弦3品=C）</td><td>10品附近（5弦10品=G）— 很少用</td></tr>
+      <tr><td><strong>A型</strong></td><td>5弦</td><td>3品横按（5弦3品=C）</td><td>10品横按（5弦10品=G）</td></tr>
+      <tr><td><strong>G型</strong></td><td>6弦</td><td>8品附近 — 指法别扭，暂时跳过</td><td>开放 G（就是民谣的 G，6弦3品=G）</td></tr>
+      <tr><td><strong>E型</strong></td><td>6弦</td><td>8品横按（上一课练的！6弦8品=C）</td><td>3品横按（6弦3品=G）</td></tr>
+      <tr><td><strong>D型</strong></td><td>4弦</td><td>10品附近（4弦10品=C）</td><td>5品附近（4弦5品=G）</td></tr>
+    </table>
+
+    <div class="tip-box">
+      <strong>💡 看规律：</strong>同一个和弦的五个形状，沿着指板从低品到高品依次是 C→A→G→E→D（循环）。<br>
+      你只需要记住<strong>根音位置</strong>：6弦找E型/G型，5弦找A型/C型，4弦找D型。
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 你现在只需要记住 E 型和 A 型</strong>（因为它们的根音在6弦和5弦，最好找位置）。<br>
+      CAGED 的完整力量——能够在<strong>任何把位找到同一个和弦</strong>——会在后面的课里慢慢展开。
+    </div>
+
+    <h3>1645 用 E 型 + A 型混合（上一课缺的补充）</h3>
+    <p>上一课全部用了 E 型根音在6弦，但这样换把距离太大。试试<strong>E型 + A型混合</strong>，你会发现手移动得更少：</p>
+
+    <table>
+      <tr><th>级数</th><th>和弦</th><th>形状</th><th>把位</th><th>根音弦</th></tr>
+      <tr>
+        <td>Ⅰ</td><td>C</td><td><strong>A型</strong></td><td>3品</td><td>5弦3品 (C)</td>
+      </tr>
+      <tr>
+        <td>Ⅵ</td><td>Am</td><td><strong>Am型</strong></td><td>开放把位</td><td>5弦空弦 (A) — 或者5品Em型/E型变体</td>
+      </tr>
+      <tr>
+        <td>Ⅳ</td><td>F</td><td><strong>E型</strong></td><td>1品</td><td>6弦1品 (F)</td>
+      </tr>
+      <tr>
+        <td>Ⅴ</td><td>G</td><td><strong>E型</strong></td><td>3品</td><td>6弦3品 (G)</td>
+      </tr>
+    </table>
+
+    <p>移动路径：C(3品) → Am(开放) → F(1品) → G(3品)<br>
+    看看——Am 到 F 只差 1品！比上一课的 5→1 近得多。</p>
+
+    <!-- ============= SECTION 2: TRIADS ============= -->
+    <h2>2. 🔥 三音和弦（Triads）— 电吉他的灵魂</h2>
+
+    <p class="warning-box" style="border-color: #c0392b;">
+      <strong>⚠️ 这是本节课最重要的概念。</strong> 专业吉他手伴奏时，80%的时间弹的不是6根弦的大横按——而是<strong>只弹3根弦的三音和弦</strong>。
+    </p>
+
+    <h3>为什么用电吉他弹三音和弦？</h3>
+    <table>
+      <tr><th></th><th>大横按（6弦）</th><th>三音和弦（3弦）</th></tr>
+      <tr>
+        <td><strong>音色</strong></td>
+        <td>厚、满、覆盖整个频段</td>
+        <td>清亮、集中、在乐队中"让得开"</td>
+      </tr>
+      <tr>
+        <td><strong>适合</strong></td>
+        <td>副歌高潮、只有一把吉他时</td>
+        <td>主歌、有Bass/键盘时、节奏切分</td>
+      </tr>
+      <tr>
+        <td><strong>换把速度</strong></td>
+        <td>慢（6根弦要同时按准）</td>
+        <td>快（3根弦，形状小）</td>
+      </tr>
+      <tr>
+        <td><strong>华语流行场景</strong></td>
+        <td>间奏、副歌强拍</td>
+        <td>主歌铺底、riff、伴随solo</td>
+      </tr>
+    </table>
+
+    <h3>三大三音和弦组</h3>
+    <p>学习三音和弦需要分三组练（弦号约定：<strong>1弦=最细的e弦，6弦=最粗的E弦</strong>）。今天只练最重要的那一组：<strong>第一组（3-2-1弦 = G-B-e）</strong>。</p>
+
+    <div class="cage-diagram">
+      <div style="flex:1;min-width:150px;text-align:center;padding:0.8rem;background:#f0eee9;border-radius:var(--radius);">
+        <strong style="color:#e74c3c;">第一组 ⭐</strong><br>
+        <span style="font-family:var(--font-sans);font-size:0.85rem;">3-2-1弦 (G-B-e)<br>音区最高，最"闪"</span>
+      </div>
+      <div style="flex:1;min-width:150px;text-align:center;padding:0.8rem;background:#f0eee9;border-radius:var(--radius);">
+        <strong>第二组</strong><br>
+        <span style="font-family:var(--font-sans);font-size:0.85rem;">4-3-2弦 (D-G-B)<br>中间音区，饱满</span>
+      </div>
+      <div style="flex:1;min-width:150px;text-align:center;padding:0.8rem;background:#f0eee9;border-radius:var(--radius);">
+        <strong>第三组</strong><br>
+        <span style="font-family:var(--font-sans);font-size:0.85rem;">5-4-3弦 (A-D-G)<br>低音区，厚重</span>
+      </div>
+    </div>
+
+    <!-- ============= SECTION 3: TRIAD SHAPES ============= -->
+    <h2>3. 3-2-1 弦（G-B-e）上的三音和弦按法</h2>
+
+    <p>在这三根弦上，每个三和弦有三种排列（转位）。<strong>今天不用背全部</strong>——先掌握下面两组 1645 专用按法。记谱方式：<code>(3弦品数 - 2弦品数 - 1弦品数)</code>。</p>
+
+    <h3>可移动组：5品区域（最重要！）</h3>
+    <table>
+      <tr>
+        <th>和弦</th>
+        <th>品位<br>(3弦-2弦-1弦)</th>
+        <th>三个音</th>
+        <th>指法</th>
+      </tr>
+      <tr>
+        <td><strong>C</strong></td>
+        <td><code>5-5-3</code></td>
+        <td>C - E - G</td>
+        <td>无名指横压 3+2弦 5品，食指按 1弦 3品</td>
+      </tr>
+      <tr>
+        <td><strong>Am</strong></td>
+        <td><code>5-5-5</code></td>
+        <td>C - E - A</td>
+        <td>一个手指横按三根弦 5品——从 C 过来时无名指直接放平即可；单独弹用食指横按也行</td>
+      </tr>
+      <tr>
+        <td><strong>F</strong></td>
+        <td><code>5-6-5</code></td>
+        <td>C - F - A</td>
+        <td>食指横按三根弦 5品 + 无名指按 2弦 6品</td>
+      </tr>
+      <tr>
+        <td><strong>G</strong></td>
+        <td><code>7-8-7</code></td>
+        <td>D - G - B</td>
+        <td>食指横按三根弦 7品 + 无名指按 2弦 8品</td>
+      </tr>
+    </table>
+
+    <pre>
+             C       Am      F       G
+1弦 (e)      3       5       5       7
+2弦 (B)      5       5       6       8
+3弦 (G)      5       5       5       7
+        └── 全部集中在 3~8 品，换和弦几乎不用移动手 ──┘
+    </pre>
+
+    <div class="info-box">
+      <strong>🎯 先别背——用手找到规律</strong><br>
+      这个 C (5-5-3) 就是<strong>上一课 A型横按 C（3品）的最高三根弦</strong>：<br>
+      A型 C 在 3品 = 5弦3品(C) + 4弦5品(G) + <strong>3弦5品(C) + 2弦5品(E) + 1弦3品(G)</strong>。<br>
+      挡住低音两根弦，剩下的就是 C 三音和弦。Am (5-5-5) 同理——就是 Em型横按 Am（5品）的最高三根弦。<br>
+      <strong>大横按去掉低音弦 = 三音和弦。</strong>F 和 G 来自 D型（以后会学），先把形状按熟。
+    </div>
+
+    <h3>开放组：1~3品（热身用）</h3>
+    <table>
+      <tr><th>和弦</th><th>品位<br>(3弦-2弦-1弦)</th><th>三个音</th><th>指法</th></tr>
+      <tr><td><strong>C</strong></td><td><code>0-1-0</code></td><td>G - C - E</td><td>食指按 2弦1品，3弦和1弦空弦</td></tr>
+      <tr><td><strong>Am</strong></td><td><code>2-1-0</code></td><td>A - C - E</td><td>中指按 3弦2品，食指按 2弦1品，1弦空弦</td></tr>
+      <tr><td><strong>F</strong></td><td><code>2-1-1</code></td><td>A - C - F</td><td>食指横按 2+1弦 1品，中指按 3弦2品</td></tr>
+      <tr><td><strong>G</strong></td><td><code>0-0-3</code></td><td>G - B - G</td><td>3弦2弦空弦，无名指按 1弦3品（根音+三音+根音，没有五音也很常用）</td></tr>
+    </table>
+
+    <pre>
+             C       Am      F       G
+1弦 (e)      0       0       1       3
+2弦 (B)      1       1       1       0
+3弦 (G)      0       2       2       0
+    </pre>
+
+    <div class="warning-box">
+      <strong>⚠️ 只扫 1-2-3 弦！</strong> 右手拇指+食指（或拨片）只碰最高三根弦，4-5-6 弦要么不碰、要么用左手手指轻触消音。三音和弦一旦混进低音弦就"脏"了。
+    </div>
+
+    <!-- ============= SECTION 4: PRACTICE ============= -->
+    <h2>4. 实操练习</h2>
+
+    <h3>🎯 练习 A：可移动组 — 5品区域 1645</h3>
+    <div class="exercise-step">
+      <span class="step-num">1</span>
+      <strong>节拍器 60 BPM</strong>
+    </div>
+    <div class="exercise-step">
+      <span class="step-num">2</span>
+      <strong>用拨片只扫 1-2-3 弦</strong> — 手腕小幅度、精准地扫最高三弦，不碰低音弦
+    </div>
+    <div class="exercise-step">
+      <span class="step-num">3</span>
+      <strong>弹 1645 循环：</strong><br>
+      C <code>5-5-3</code> → Am <code>5-5-5</code> → F <code>5-6-5</code> → G <code>7-8-7</code>
+    </div>
+    <div class="exercise-step">
+      <span class="step-num">4</span>
+      <strong>目标：</strong>3个音同时响、干净。切换 C→Am→F 时手几乎不动（都在5品微调），F→G 整体平移2品
+    </div>
+
+    <pre>
+C   5-5-3   (无名指横压3+2弦5品 + 食指按1弦3品)
+ ↓  食指离开，无名指放平、横按三根弦5品
+Am  5-5-5   (无名指一个手指横按5品三根弦!)
+ ↓  改食指横按5品，无名指立起来按2弦6品
+F   5-6-5   (食指横按5品三根弦 + 无名指2弦6品)
+ ↓  整体上移2品，手型和F一模一样
+G   7-8-7   (食指横按7品三根弦 + 无名指2弦8品)
+    </pre>
+
+    <div class="tip-box">
+      <strong>🎸 听音色对比：</strong><br>
+      先用大横按弹 C (8品) 扫6根弦，再用三音和弦弹 C (5-5-3) 扫3根弦。<br>
+      注意三音和弦在音箱上"更亮、更清晰、更有空间感"——这就是电吉他伴奏的声音。
+    </div>
+
+    <h3>🎯 练习 B：开放组 — 1~3品热身版</h3>
+    <p>这个练习集中在指板最前面，手最舒服——适合每天热身：</p>
+
+    <div class="exercise-step">
+      <span class="step-num">1</span>
+      左手指法（记法：3弦-2弦-1弦）：<br>
+      <strong>C</strong> <code>0-1-0</code> = 3弦空弦 + 食指按2弦1品 + 1弦空弦<br>
+      <strong>Am</strong> <code>2-1-0</code> = 中指按3弦2品 + 食指按2弦1品 + 1弦空弦<br>
+      <strong>F</strong> <code>2-1-1</code> = 中指按3弦2品 + 食指横按2弦和1弦的1品<br>
+      <strong>G</strong> <code>0-0-3</code> = 3弦2弦空弦 + 无名指按1弦3品
+    </div>
+    <div class="exercise-step">
+      <span class="step-num">2</span>
+      60 BPM，每和弦 4 拍，换和弦时手指<strong>尽量同时离开和落下</strong>
+    </div>
+
+    <div class="info-box">
+      <strong>🔥 两组区别记牢：</strong><br>
+      - 开放组（1~3品）：音色温暖柔和，适合主歌铺底<br>
+      - 可移动组（5~8品）：音色明亮集中，适合副歌和切分节奏<br>
+      <strong>实战中：主歌用开放组、副歌切换到可移动组</strong> — 同一首歌两个音色层次。<br>
+      而且可移动组是"活"的——整体平移到任何把位就变成任何调（5品=C调区域，7品=D调区域……），这正是 CAGED 的威力。
+    </div>
+
+    <!-- ============= SECTION 5: PUT IT TOGETHER ============= -->
+    <h2>5. 🎵 实战应用：一首歌的伴奏层次</h2>
+
+    <p>用《简单爱》（C调 1645）做示例，看看真正弹伴奏时怎么换：</p>
+
+    <table>
+      <tr><th>段落</th><th>用哪种按法</th><th>说明</th></tr>
+      <tr>
+        <td>前奏/主歌</td>
+        <td>三音和弦（开放组，1~3品）</td>
+        <td>轻扫 G-B-E 弦，留空间给人声</td>
+      </tr>
+      <tr>
+        <td>副歌</td>
+        <td>E型大横按（6弦全扫，Lesson 1 的 8品C）</td>
+        <td>推厚度，歌曲向上走</td>
+      </tr>
+      <tr>
+        <td>间奏/Solo垫底</td>
+        <td>三音和弦（可移动组，5~8品）</td>
+        <td>高频明亮，不跟Solo抢频段</td>
+      </tr>
+      <tr>
+        <td>尾奏渐弱</td>
+        <td>回到三音和弦（开放组）</td>
+        <td>回到开头的感觉</td>
+      </tr>
+    </table>
+
+    <div class="solo-tip">
+      ▸ 电吉他伴奏的核心心法：<br>
+      <span class="highlight">"别一直弹6根弦。音越多越没空间，音越少越有层次。"</span><br>
+      ▸ 你听录音里的电吉他手好像一直在弹——其实他们经常<strong>不弹</strong>，只在关键拍上弹三音和弦点缀。
+    </div>
+
+    <!-- ============= SECTION 6: WRAP UP ============= -->
+    <h2>6. 课后总结</h2>
+    <table>
+      <tr><th>你今天学了</th><th>掌握了就划 ✓</th></tr>
+      <tr><td>CAGED 是什么（5个和弦形状 + 根音在哪根弦）</td><td>☐</td></tr>
+      <tr><td>E型 + A型混合弹 C调 1645</td><td>☐</td></tr>
+      <tr><td>三音和弦可移动组：C <code>5-5-3</code> → Am <code>5-5-5</code> → F <code>5-6-5</code> → G <code>7-8-7</code></td><td>☐</td></tr>
+      <tr><td>三音和弦开放组：C <code>0-1-0</code> → Am <code>2-1-0</code> → F <code>2-1-1</code> → G <code>0-0-3</code></td><td>☐</td></tr>
+      <tr><td>知道大横按 vs 三音和弦什么时候用</td><td>☐</td></tr>
+    </table>
+
+    <div class="tip-box" style="border-color: #8e44ad; background: #f3edf8;">
+      <strong>📚 推荐观看：</strong><br>
+      YouTube 搜索 <code>"guitar triads explained"</code> 或 <code>"三音和弦 吉他"</code> — 你会在视频中看到这些形状在实际演奏中怎么用。<br>
+      <a href="https://www.youtube.com/watch?v=9M6BGR9OrnQ" target="_blank">Signal Music Studio - Triads on Guitar</a> — 一个很好的三音和弦入门（英文，但看指板就行）。
+    </div>
+
+    <div class="tip-box" style="margin-top: 2rem; border-color: #8e44ad; background: #f3edf8;">
+      <strong>🤖 有任何不明白的，随时问 Claude！</strong><br>
+      比如："三音和弦的F按不响怎么办？" "三音和弦怎么换调？" "G大调 1645 的三音和弦版本？"
+    </div>
+
+    <div class="lesson-nav">
+      <a href="./0001-ji-shu-si-wei-yu-1645.html">← Lesson 1</a>
+      <a href="../index.html">🏠 学习中心</a>
+      <a href="./0003-he-xian-jin-xing-ku.html">Lesson 3 →</a>
+    </div>
+  </div>
+</body>
+</html>

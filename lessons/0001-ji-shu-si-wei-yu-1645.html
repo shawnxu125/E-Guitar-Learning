@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: 级数思维与 1645 — 无谱伴奏的起点</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Lesson-specific additions */
+    .progression-diagram {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .prog-card {
+      background: var(--accent);
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      font-weight: 700;
+      min-width: 3.5rem;
+      text-align: center;
+    }
+    .prog-arrow {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+    }
+    .keyboard-note {
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+      text-align: center;
+      border-radius: 4px;
+      margin: 2px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+    .note-white { background: #fff; border: 1px solid #ccc; color: #333; }
+    .note-black { background: #333; color: #fff; }
+    .practice-track {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+      font-family: var(--font-sans);
+    }
+    .bpm-tag {
+      background: var(--code-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .solo-tip {
+      background: #1a1a2e;
+      color: #eee;
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin: 1rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .solo-tip .highlight { color: #f1c40f; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎸 Lesson 1: 级数思维与 1645</h1>
+    <p><em>你需要：一把调好音的电吉他 + 15分钟</em></p>
+
+    <div class="info-box">
+      <strong>🎯 这节课结束后，你能做到：</strong>
+      <ol>
+        <li>理解什么是"级数"（Nashville Number System）</li>
+        <li>用一个公式弹出 90% 华语流行歌的主歌/副歌</li>
+        <li>在 C 大调上自如地弹 1→6→4→5 这四个和弦</li>
+        <li>初级地做"串起来"的练习，为日后即兴热身</li>
+      </ol>
+    </div>
+
+    <!-- ============= SECTION 1 ============= -->
+    <h2>1. 核心概念：级数思维</h2>
+    <p>你有没有发现一个问题：你用 C，Am，F，G 弹了一首歌；然后别人说"换个调"，你就卡住了？</p>
+    <p><strong>级数思维</strong>（也叫 <em>Nashville Number System</em>）就是用来解决这个的。它把和弦用<strong>数字</strong>表示，而不是具体的名字。这样你就可以"移调"而无须重新学习。</p>
+
+    <h3>在 C 大调里，七个级数和弦是：</h3>
+    <table>
+      <tr>
+        <th>级数</th>
+        <th>Ⅰ</th>
+        <th>Ⅱ</th>
+        <th>Ⅲ</th>
+        <th>Ⅳ</th>
+        <th>Ⅴ</th>
+        <th>Ⅵ</th>
+        <th>Ⅶ</th>
+      </tr>
+      <tr>
+        <th>性质</th>
+        <td>大三</td>
+        <td>小三</td>
+        <td>小三</td>
+        <td>大三</td>
+        <td>大三</td>
+        <td>小三</td>
+        <td>减三</td>
+      </tr>
+      <tr>
+        <th>C 大调</th>
+        <td>C</td>
+        <td>Dm</td>
+        <td>Em</td>
+        <td>F</td>
+        <td>G</td>
+        <td>Am</td>
+        <td>Bdim</td>
+      </tr>
+      <tr>
+        <th>G 大调</th>
+        <td>G</td>
+        <td>Am</td>
+        <td>Bm</td>
+        <td>C</td>
+        <td>D</td>
+        <td>Em</td>
+        <td>F#dim</td>
+      </tr>
+    </table>
+
+    <div class="tip-box">
+      <strong>💡 记忆口诀：</strong> "大小小大大小减" （大, 小, 小, 大, 大, 小, 减）— 对应 Ⅰ~Ⅶ 级的性质。华语流行几乎只用前 6 个，Ⅶ 级（减三和弦）很少出现。
+    </div>
+
+    <!-- ============= SECTION 2 ============= -->
+    <h2>2. 今天的主角：1645</h2>
+
+    <p><strong>1 → 6 → 4 → 5</strong> 是华语流行乐中出现频率最高的和弦进行之一。来听听看这些歌：</p>
+    <ul>
+      <li>周杰伦 — 《简单爱》（副歌）</li>
+      <li>林俊杰 — 《江南》（副歌）</li>
+      <li>五月天 — 《温柔》（副歌）</li>
+      <li>陈奕迅 — 《十年》（主歌部分框架）</li>
+    </ul>
+
+    <div class="progression-diagram">
+      <div class="prog-card">Ⅰ <small>C</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card" style="background:#8e44ad;">Ⅵ <small>Am</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card" style="background:#2980b9;">Ⅳ <small>F</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card" style="background:#27ae60;">Ⅴ <small>G</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card">Ⅰ <small>C</small></div>
+    </div>
+
+    <p>这就是 <strong>1645 走向</strong>。记住它等于记住了几十首歌的核心骨架。</p>
+
+    <!-- ============= SECTION 3: FRETBOARD POSITIONS ============= -->
+    <h2>3. 🎸 电吉他 1645 把位指南</h2>
+
+    <p>这是你想问的关键问题——电吉他和民谣不一样，不能用开放和弦伴奏整首歌（音色太薄、压在 vocals 上）。以下是电吉他流行伴奏的<strong>标准把位方案</strong>：</p>
+
+    <h3>核心原则：E型 + A型 横按</h3>
+    <p>电吉他伴奏主要用两种横按形状的变体。记住它们的"根音在哪儿"：</p>
+
+    <table>
+      <tr><th>形状</th><th>根音位置</th><th>按法</th><th>例（根音品数=和弦名）</th></tr>
+      <tr><td><strong>E型</strong></td><td>6弦（最粗）</td><td>食指横按，其余手指按开放 E / Em 形状平移</td><td>F (1品), G (3品), A (5品), B (7品), C (8品)</td></tr>
+      <tr><td><strong>A型</strong></td><td>5弦</td><td>食指横按，其余手指按开放 A / Am 形状平移</td><td>Bb (1品), C (3品), D (5品), E (7品), F (8品)</td></tr>
+    </table>
+
+    <div class="info-box">
+      <strong>⚡ 找和弦口诀：根音在哪根弦的哪一品，横按就按在哪。</strong><br>
+      6弦上的音：1品F、3品G、5品A、7品B、8品C<br>
+      5弦上的音：1品Bb、3品C、5品D、7品E、8品F<br>
+      记住这两行，任何调的 1645 都能自己拼出来。
+    </div>
+
+    <h3>E型大横按指法参考</h3>
+    <p>E型 = 把开放E和弦（0-2-2-1-0-0）整个平移。以横按在第 N 品为例：</p>
+    <pre>
+e (1弦) ┤ N 品     ← 食指（横按，覆盖全部6弦）
+B (2弦) ┤ N 品     ← 食指
+G (3弦) ┤ N+1 品   ← 中指
+D (4弦) ┤ N+2 品   ← 小指
+A (5弦) ┤ N+2 品   ← 无名指
+E (6弦) ┤ N 品     ← 食指（根音在这里！）
+    </pre>
+    <p><strong>Em型（小和弦）更简单</strong>：食指横按 N 品 + 中指5弦 N+2 + 无名指4弦 N+2（就是把开放 Em 的指法整体平移，3弦由横按的食指负责，不用单独按）。</p>
+
+    <h3>方案一：C大调 1645 — 全部用小指附近的把位</h3>
+    <p>这个方案覆盖 <strong>1~8品区域</strong>，全部根音在6弦，找位置只需记一行音名：</p>
+
+    <table>
+      <tr><th>级数</th><th>和弦</th><th>把位</th><th>形状</th><th>指法</th></tr>
+      <tr>
+        <td><strong>Ⅰ</strong></td>
+        <td><strong>C</strong></td>
+        <td>8品</td>
+        <td>E型</td>
+        <td>食指8品横按，中指9品3弦(G弦)，无名指10品5弦(A弦)，小指10品4弦(D弦)</td>
+      </tr>
+      <tr>
+        <td><strong>Ⅵ</strong></td>
+        <td><strong>Am</strong></td>
+        <td>5品</td>
+        <td>Em型</td>
+        <td>食指5品横按，中指7品5弦(A弦)，无名指7品4弦(D弦)——3弦由横按负责，比大三和弦省力!</td>
+      </tr>
+      <tr>
+        <td><strong>Ⅳ</strong></td>
+        <td><strong>F</strong></td>
+        <td>1品</td>
+        <td>E型</td>
+        <td>食指1品大横按，中指2品3弦(G弦)，无名指3品5弦(A弦)，小指3品4弦(D弦)</td>
+      </tr>
+      <tr>
+        <td><strong>Ⅴ</strong></td>
+        <td><strong>G</strong></td>
+        <td>3品</td>
+        <td>E型</td>
+        <td>食指3品横按，中指4品3弦(G弦)，无名指5品5弦(A弦)，小指5品4弦(D弦)</td>
+      </tr>
+    </table>
+
+    <pre>
+    ── C (8品) ───── Am (5品) ───── F (1品) ───── G (3品) ──
+    指板移动路径：  8→5 (退3品)    5→1 (退4品)   1→3 (进2品)
+    </pre>
+
+    <div class="tip-box">
+      <strong>🎯 换和弦技巧：</strong><br>
+      从 C (8品) → Am (5品)——整个手往琴头方向滑3品，松开中指无名指小指，保持食指横按形状下移即可。<br>
+      从 Am (5品) → F (1品)——整个手再滑4品到1品，食指横按不变，其他手指找新位置。<br>
+      从 F (1品) → G (3品)——只进2品，最容易的换把。
+    </div>
+
+    <h3>方案二（进阶）：G大调 1645</h3>
+    <table>
+      <tr><th>级数</th><th>和弦</th><th>把位</th><th>形状</th></tr>
+      <tr><td>Ⅰ</td><td><strong>G</strong></td><td>3品</td><td>E型</td></tr>
+      <tr><td>Ⅵ</td><td><strong>Em</strong></td><td>0品（开放Em，最省力）</td><td>开放Em — 就是E型横按移到"0品"，中指5弦2品+无名指4弦2品</td></tr>
+      <tr><td>Ⅳ</td><td><strong>C</strong></td><td>8品</td><td>E型</td></tr>
+      <tr><td>Ⅴ</td><td><strong>D</strong></td><td>5品（根音5弦5品=D）或10品（根音6弦10品=D）</td><td>A型（5品，推荐）或E型（10品）</td></tr>
+    </table>
+
+    <div class="tip-box">
+      <strong>🔥 小挑战：</strong> C调全套在1~8品之间移动，G调则在2~10品。这两个调覆盖了华语流行乐80%的歌曲调性（C, G, D, A, E, F）。练好它们，你就覆盖了大部分伴奏需求。
+    </div>
+
+    <!-- ============= SECTION 4: RHYTHM PRACTICE ============= -->
+    <h2>4. 实操练习</h2>
+
+    <h3>🎯 练习 A：四拍换一个和弦</h3>
+    <div class="exercise-step">
+      <span class="step-num">1</span>
+      <strong>设定节拍器</strong> — 60 BPM（一秒一拍）
+    </div>
+    <div class="exercise-step">
+      <span class="step-num">2</span>
+      <strong>每个和弦弹 4 拍</strong>（用下扫弦，清晰饱满即可），然后换下一个
+    </div>
+    <div class="exercise-step">
+      <span class="step-num">3</span>
+      <strong>循环：</strong> C(8品) 4拍 → Am(5品) 4拍 → F(1品) 4拍 → G(3品) 4拍 → 回到 C
+    </div>
+    <div class="exercise-step">
+      <span class="step-num">4</span>
+      <strong>目标：</strong>换和弦时不能断拍子，声音干净（没有闷音/蹭弦）
+    </div>
+
+    <div class="tip-box">
+      <strong>🔥 小挑战：</strong> 顺利后，每个和弦只弹 2 拍。然后在每小节的第 4 拍后半拍提前换好和弦形状，第 1 拍直接扫下去。<br>
+      这会训练你的"和弦预判"能力——solo 时同样有用。
+    </div>
+
+    <h3>🎯 练习 B：换到 G 大调</h3>
+    <p>用级数思维，把 1645 搬到 G 大调：</p>
+    <div class="progression-diagram">
+      <div class="prog-card">Ⅰ <small>G (3品)</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card" style="background:#8e44ad;">Ⅵ <small>Em (开放)</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card" style="background:#2980b9;">Ⅳ <small>C (8品)</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card" style="background:#27ae60;">Ⅴ <small>D (A型5品)</small></div>
+      <span class="prog-arrow">→</span>
+      <div class="prog-card">Ⅰ <small>G (3品)</small></div>
+    </div>
+    <p>同样的节奏练习再来一遍。如果你能在 60 BPM 下流畅切换，你已经跨出了"无谱伴奏"的第一步。</p>
+
+    <!-- ============= SECTION 5: FILL-IN 预告 ============= -->
+    <h2>5. 🎵 今天 Bonus：在 1645 上做"填空"</h2>
+    <p>这是即兴 solo 的雏形。</p>
+
+    <p>在 C 大调的 1645 上，你只需要<strong>C大调五声音阶</strong>的五个音（C D E G A）就能做简单的填空。开放把位版本如下：</p>
+
+    <h3>C大调五声音阶 — 开放把位</h3>
+    <pre>
+e |----0---3---5---|   E   G   A
+B |----1---3---5---|   C   D   E
+G |----0---2---5---|   G   A   C
+D |----0---2---5---|   D   E   G
+A |----0---3---5---|   A   C   D
+E |----0---3---5---|   E   G   A
+        （只弹这五个音：C D E G A）</pre>
+    <p style="font-size:0.85rem;">📋 完整音名表见 <a href="../reference/fretboard-notes.html">指板参考表</a>。</p>
+    <p><strong>这五个音你可以在整个 1645 循环中随便弹</strong>——每一个音对 C、Am、F、G 这四个和弦都是"安全音"，不会撞车。</p>
+
+    <div class="exercise-step">
+      <span class="step-num">🎯</span>
+      <strong>填空练习：</strong> 左手按好 C 和弦，在你右手扫弦的间隙（比如每小节的第 4 拍后半拍），用无名指或小指勾一下 ③ 弦的空弦（G）或 ② 弦第 1 品（C）。<br>
+      <small>这种"和弦+单音填空"就是最简单的即兴。</small>
+    </div>
+
+    <div class="solo-tip">
+      ▸ 用 C 大调五声音阶在 1645 上即兴的核心心法：<br>
+      <span class="highlight">"和弦是家，单音是出门散步——随时可以回家"</span><br>
+      ▸ 每个和弦刚换的时候弹一下它的根音（C→弹C，Am→弹A……）建立安全感<br>
+      ▸ 然后用五声音阶里的音"散步"到下一个和弦
+    </div>
+
+    <!-- ============= SECTION 5: WRAP UP ============= -->
+    <h2>6. 课后总结</h2>
+    <table>
+      <tr><th>你今天学了</th><th>掌握了就划 ✓</th></tr>
+      <tr><td>级数（Ⅰ~Ⅵ）的概念</td><td>☐</td></tr>
+      <tr><td>E型横按在 C 大调 1645 上能用（8→5→1→3品）</td><td>☐</td></tr>
+      <tr><td>60 BPM 四拍换和弦流畅</td><td>☐</td></tr>
+      <tr><td>G 大调 1645 也能弹（3→开放→8→5品）</td><td>☐</td></tr>
+      <tr><td>试过"和弦填空"小技巧</td><td>☐</td></tr>
+    </table>
+
+    <div class="info-box">
+      <strong>📚 推荐延伸阅读/观看：</strong><br>
+      <a href="https://wiki.nicechord.com/" target="_blank">好和弦 Wiki - 和弦功能与级数</a> — 官大為老师的讲解非常清楚。<br>
+      YouTube 搜索 "1645 chord progression guitar" — 你会发现数不清的流行歌都在用这个走向。
+    </div>
+
+    <div class="tip-box" style="margin-top: 2rem; border-color: #8e44ad; background: #f3edf8;">
+      <strong>🤖 有任何不明白的，随时问 Claude！</strong><br>
+      比如："1645 在 D 大调是什么和弦？" "F 到 G 的换把怎么更顺？" "我用 1645 弹《简单爱》感觉不太对？"
+    </div>
+
+    <div class="lesson-nav">
+      <span>Lesson 1 / 10 · <a href="../reference/fretboard-notes.html">📋 指板音名表</a></span>
+      <a href="../index.html">🏠 学习中心</a>
+      <a href="./0002-caged-san-yin-he-xian.html">Lesson 2 →</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎸 电吉他学习中心 — 无谱伴奏与即兴 Solo</title>
+  <link rel="stylesheet" href="./assets/style.css">
+  <style>
+    .hero {
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      border-bottom: 2px solid var(--accent);
+      margin-bottom: 2rem;
+    }
+    .hero h1 { border: none; font-size: 2.2rem; margin-bottom: 0.3rem; }
+    .hero .mission-line {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .progress-overview {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .progress-stat {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.5rem;
+      text-align: center;
+      min-width: 120px;
+    }
+    .progress-stat .num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+      font-family: var(--font-sans);
+    }
+    .progress-stat .lbl { font-size: 0.8rem; color: var(--text-secondary); }
+
+    .phase {
+      margin: 1.5rem 0;
+    }
+    .phase-title {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.8rem;
+    }
+    .lesson-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      position: relative;
+    }
+    .lesson-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(192,57,43,0.12);
+    }
+    .lesson-card .num {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      min-width: 2.2rem;
+      padding-top: 0.1rem;
+    }
+    .lesson-card .body { flex: 1; }
+    .lesson-card a {
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .lesson-card a:hover { text-decoration: underline; }
+    .lesson-card .essence {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .lesson-card input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+    .lesson-card.done { opacity: 0.55; }
+    .lesson-card.done a { text-decoration: line-through; }
+
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.8rem;
+    }
+    .ref-card {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+    }
+    .ref-card a { font-weight: 700; text-decoration: none; display: block; margin-bottom: 0.15rem; }
+    .ref-card a:hover { text-decoration: underline; }
+    .ref-card .desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; }
+
+    .daily-plan {
+      background: #1a1a2e;
+      color: #eee;
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      margin: 1.5rem 0;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .daily-plan strong { color: #f1c40f; }
+    .daily-plan a { color: #8ecae6; }
+
+    .teacher-box {
+      border: 2px solid #8e44ad;
+      background: #f3edf8;
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+    }
+
+    @media print {
+      .lesson-card input[type="checkbox"] { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>🎸 电吉他学习中心</h1>
+      <p class="mission-line">目标：不看谱，为流行乐伴奏 + 即兴 Solo</p>
+    </div>
+
+    <div class="progress-overview">
+      <div class="progress-stat">
+        <span class="num" id="stat-done">0</span>
+        <span class="lbl">已完成课程 / 10</span>
+      </div>
+      <div class="progress-stat">
+        <span class="num" id="stat-phase">阶段一</span>
+        <span class="lbl">当前阶段</span>
+      </div>
+      <div class="progress-stat">
+        <span class="num" id="stat-days">Day 1</span>
+        <span class="lbl">90 天计划</span>
+      </div>
+    </div>
+
+    <div class="daily-plan">
+      <strong>⏱ 每日 30 分钟配方：</strong>5' 热身（音阶爬格/推弦音准） + 15' 主项（当前课程的练习） + 10' 玩音乐（跟伴奏即兴 / 扒歌）<br>
+      <strong>📅 完整编排：</strong>见 <a href="./lessons/0010-shi-zhan-lu-xian-tu.html">Lesson 10 · 90 天练习计划</a> —— 不知道今天练什么时就打开它。
+    </div>
+
+    <!-- ===== 阶段一：伴奏地基 ===== -->
+    <div class="phase">
+      <div class="phase-title">阶段一 · 伴奏地基（无谱伴奏的能力）</div>
+      <div class="lesson-grid">
+        <div class="lesson-card" data-lesson="0001">
+          <span class="num">L1</span>
+          <div class="body">
+            <a href="./lessons/0001-ji-shu-si-wei-yu-1645.html">级数思维与 1645</a>
+            <span class="essence">用数字记和弦，任何调都能移 · E型横按把位</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+        <div class="lesson-card" data-lesson="0002">
+          <span class="num">L2</span>
+          <div class="body">
+            <a href="./lessons/0002-caged-san-yin-he-xian.html">CAGED 与三音和弦</a>
+            <span class="essence">电吉他伴奏少弹弦、多换把位 · 主歌副歌两层音色</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+        <div class="lesson-card" data-lesson="0003">
+          <span class="num">L3</span>
+          <div class="body">
+            <a href="./lessons/0003-he-xian-jin-xing-ku.html">四大和弦进行库</a>
+            <span class="essence">4536251 / 卡农 / 1564 / 4615 —— 流行歌是有限的组合</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+        <div class="lesson-card" data-lesson="0006">
+          <span class="num">L6</span>
+          <div class="body">
+            <a href="./lessons/0006-ban-zou-jie-zou-shou-fa.html">伴奏节奏手法</a>
+            <span class="essence">扫弦 / 分解 / funk切音 / power chord —— 右手和闷音</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+        <div class="lesson-card" data-lesson="0008">
+          <span class="num">L8</span>
+          <div class="body">
+            <a href="./lessons/0008-ting-yin-ba-he-xian.html">听音扒和弦</a>
+            <span class="essence">三步法：找家 → 套库 → 精修 —— 无谱伴奏的最后一公里</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 阶段二：即兴 Solo ===== -->
+    <div class="phase">
+      <div class="phase-title">阶段二 · 即兴 Solo（让吉他唱歌的能力）</div>
+      <div class="lesson-grid">
+        <div class="lesson-card" data-lesson="0004">
+          <span class="num">L4</span>
+          <div class="body">
+            <a href="./lessons/0004-wu-sheng-yin-jie-ba-wei.html">五声音阶把位体系</a>
+            <span class="essence">盒子是活的，平移就换调 · 相对大小调</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+        <div class="lesson-card" data-lesson="0005">
+          <span class="num">L5</span>
+          <div class="body">
+            <a href="./lessons/0005-he-xian-nei-yin-mu-biao-yin.html">和弦内音与目标音</a>
+            <span class="essence">和弦换了，落点音也要换 —— 从跑音阶到弹旋律</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+        <div class="lesson-card" data-lesson="0007">
+          <span class="num">L7</span>
+          <div class="body">
+            <a href="./lessons/0007-solo-chang-ge-de-ji-qiao.html">让 Solo 唱歌</a>
+            <span class="essence">推弦 · 揉弦 · 乐句呼吸 —— 音怎么唱出来比弹什么重要</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+        <div class="lesson-card" data-lesson="0009">
+          <span class="num">L9</span>
+          <div class="body">
+            <a href="./lessons/0009-lan-tiao-wei-dao-yu-wai-zhi-wai.html">蓝调味道</a>
+            <span class="essence">blue note · 12小节蓝调 · shuffle —— 那个"脏音"是辣椒</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 阶段三：实战 ===== -->
+    <div class="phase">
+      <div class="phase-title">阶段三 · 实战整合</div>
+      <div class="lesson-grid">
+        <div class="lesson-card" data-lesson="0010">
+          <span class="num">L10</span>
+          <div class="body">
+            <a href="./lessons/0010-shi-zhan-lu-xian-tu.html">实战路线图</a>
+            <span class="essence">五步演出流程 · 90天计划 · jam 指南 · 毕业自评表</span>
+          </div>
+          <input type="checkbox" title="标记完成">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 参考文档 ===== -->
+    <div class="phase">
+      <div class="phase-title">📋 参考文档（练琴时随手查）</div>
+      <div class="ref-grid">
+        <div class="ref-card">
+          <a href="./reference/fretboard-notes.html">指板音名表</a>
+          <span class="desc">0-12品全弦音名 · 找和弦口诀 · 所有课程的事实来源</span>
+        </div>
+        <div class="ref-card">
+          <a href="./reference/chord-progressions.html">和弦进行速查表</a>
+          <span class="desc">四大进行 C/G/D/A 调对照 · 横按把位 · 段落配方</span>
+        </div>
+        <div class="ref-card">
+          <a href="./reference/pentatonic-positions.html">五声音阶把位表</a>
+          <span class="desc">五个盒子 · 连接地图 · 蓝调音位置 · 换调方法</span>
+        </div>
+        <div class="ref-card">
+          <a href="./reference/rhythm-patterns.html">节奏型速查表</a>
+          <span class="desc">扫弦/分解/funk/shuffle 记号 · 动态层次速记</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 老师 ===== -->
+    <div class="teacher-box">
+      <strong>🤖 Claude 是你的老师，随时回来问：</strong><br>
+      "这首歌帮我扒和弦" · "推弦总不准怎么练" · "帮我出一组目标音练习" · "我录了段 solo 帮我诊断" · "L4 练完了，接下来练什么"<br>
+      <span style="font-size:0.85rem;color:var(--text-secondary);">建议每周把练习录音发给 Claude 复盘一次。</span>
+    </div>
+
+    <p style="text-align:center;font-size:0.8rem;color:var(--text-secondary);margin-top:2rem;">
+      <a href="./MISSION.md">MISSION</a> · 进度自动保存在本机浏览器 · 打印此页可贴墙 📌
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      var KEY = 'eguitar-progress';
+      var progress = {};
+      try { progress = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+
+      var cards = document.querySelectorAll('.lesson-card');
+
+      function save() {
+        try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch (e) {}
+      }
+
+      function updateStats() {
+        var total = cards.length;
+        var done = 0;
+        cards.forEach(function (c) {
+          if (progress[c.getAttribute('data-lesson')]) done++;
+        });
+        document.getElementById('stat-done').textContent = done;
+
+        var phase = '阶段一';
+        if (done >= 9) phase = '毕业 🎓';
+        else if (done >= 5) phase = '阶段三';
+        else if (done >= 2) phase = '阶段二';
+        document.getElementById('stat-phase').textContent = phase;
+
+        // 粗略估算：每课约9天（90天/10课）
+        document.getElementById('stat-days').textContent = 'Day ' + Math.min(90, done * 9 + 1);
+      }
+
+      cards.forEach(function (card) {
+        var id = card.getAttribute('data-lesson');
+        var cb = card.querySelector('input[type="checkbox"]');
+        cb.checked = !!progress[id];
+        if (cb.checked) card.classList.add('done');
+
+        cb.addEventListener('change', function () {
+          progress[id] = cb.checked;
+          card.classList.toggle('done', cb.checked);
+          save();
+          updateStats();
+        });
+      });
+
+      updateStats();
+    })();
+  </script>
+</body>
+</html>
